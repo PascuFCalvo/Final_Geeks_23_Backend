@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,9 +23,10 @@ use Illuminate\Support\Facades\Route;
 
 //Esto faltaria ordenarlo por middlewares y por roles
 
-//como usuario registrarse y loguearse, ver mi perfil y ponerme en estado inactivo
+//como usuario registrarse como streamer o como marca y loguearse, ver mi perfil y ponerme en estado inactivo
 
-Route::post('/register', [UserController::class, 'register']);
+Route::post('/registerStreamer', [UserController::class, 'registerStreamer']);
+Route::post('/registerBrand', [UserController::class, 'registerBrand']);
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout']);
 Route::get('/profile', [UserController::class, 'profile']);

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('streamers', function (Blueprint $table){
+        Schema::create('streamers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('streamer_nick', 50);
             $table->string('streamer_nif', 20);
             $table->string('streamer_platform', 100);
-            $table->integer('streamer_revenue');
+            $table->integer('streamer_revenue')->default(0);
             $table->boolean('has_active_campaigns')->default(false);
             $table->timestamps();
         });

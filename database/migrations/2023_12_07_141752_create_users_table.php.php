@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table){
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('user_name', 50);
             $table->string('user_email', 100)->unique();
-            $table->string('password', 12);
+            $table->string('password');
             $table->string('user_phone', 20);
             $table->enum("user_role", ["admin", "streamer", "brand"])->default("streamer");
             $table->boolean('is_active')->default(true);
