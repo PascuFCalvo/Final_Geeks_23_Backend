@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Models\User;
 use App\Models\Streamer;
+use Error;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
+use Laravel\Sanctum\PersonalAccessToken;
 
 
 
@@ -20,7 +23,7 @@ class UserController extends Controller
                 [
                     'user_name' => $request->user_name,
                     'user_email' => $request->user_email,
-                    'password' => $request->password,
+                    'password' => bcrypt($request->input('password')),
                     'user_phone' => $request->user_phone,
                     'user_role' => 'streamer',
                     'is_active' => true,
@@ -43,7 +46,8 @@ class UserController extends Controller
                 [
                     "success" => true,
                     "message" => "streamer registered",
-                    "data" => $newStreamer
+                    "user" => $newUser,
+                    "streamer" => $newStreamer
                 ],
                 Response::HTTP_CREATED
             );
@@ -65,7 +69,7 @@ class UserController extends Controller
                 [
                     'user_name' => $request->user_name,
                     'user_email' => $request->user_email,
-                    'password' => $request->password,
+                    'password' => bcrypt($request->input('password')),
                     'user_phone' => $request->user_phone,
                     'user_role' => 'brand',
                     'is_active' => true,
@@ -99,6 +103,41 @@ class UserController extends Controller
                 [
                     "success" => false,
                     "message" => "Error registering user"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    public function login(Request $request)
+    {
+        try {
+            $email = $request->email;
+            $password = $request->password;
+
+            $user = User::query()->where('user_email', $email)->first();
+
+            if (!Hash::check($password, $user->password)) {
+                abort(401, 'Invalid credentials');
+            }
+            $token = $user->createToken('userToken')->plainTextToken;
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "User logged in",
+                    "data" => [
+                        "user" => $user,
+                        "token" => $token
+                    ]
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error logging in"
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
