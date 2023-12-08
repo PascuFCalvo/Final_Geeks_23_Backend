@@ -143,4 +143,17 @@ class UserController extends Controller
             );
         }
     }
+    public function getProfile(Request $request)
+    {
+        $user = auth()->user();
+
+        return response()->json(
+            [
+                "success" => true,
+                "message" => "User",
+                "data" => $user
+            ],
+            Response::HTTP_OK
+        );
+    }
 }

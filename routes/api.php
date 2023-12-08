@@ -24,12 +24,17 @@ use Illuminate\Support\Facades\Route;
 //Esto faltaria ordenarlo por middlewares y por roles
 
 //como usuario registrarse como streamer o como marca y loguearse, ver mi perfil y ponerme en estado inactivo
+Route::group([
+   "middleware" => "auth:sanctum"
+], function () {
+   Route::get('/profile', [UserController::class, 'getProfile']);
+});
+
 
 Route::post('/registerStreamer', [UserController::class, 'registerStreamer']);
 Route::post('/registerBrand', [UserController::class, 'registerBrand']);
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout']);
-Route::get('/profile', [UserController::class, 'profile']);
 Route::put('/inactivate', [UserController::class, 'inactivate']);
 
 //como usuario actualizar mis credenciales de email y password
@@ -74,6 +79,3 @@ Route::put('/validateStream', [SuperAdminController::class, 'validateStream']);
 //como streamer cobrar un stream ya validado
 
 Route::put('/payStream', [StreamerController::class, 'payStream']);
-
-
-
