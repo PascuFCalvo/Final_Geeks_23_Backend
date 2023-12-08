@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Country;
 use App\Models\User;
 use App\Models\Streamer;
 use Illuminate\Http\Request;
@@ -169,6 +170,29 @@ class UserController extends Controller
                     ]
                 ],
                 Response::HTTP_OK
+            );
+        }
+    }
+    public function getCountries(Request $request)
+    {
+        try {
+            $countries = Country::all();
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "Countries",
+                    "data" => $countries
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error getting countries"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
     }

@@ -36,6 +36,7 @@ Route::post('/registerBrand', [UserController::class, 'registerBrand']);
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout']);
 Route::put('/inactivate', [UserController::class, 'inactivate']);
+Route::get('/getCountries', [UserController::class, 'getCountries']);
 
 //como usuario actualizar mis credenciales de email y password
 
