@@ -5,14 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Models\User;
 use App\Models\Streamer;
-use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
-use Laravel\Sanctum\PersonalAccessToken;
-
-
 
 class UserController extends Controller
 {
@@ -39,7 +35,6 @@ class UserController extends Controller
                     'streamer_revenue' => 0,
                     'country_id' => $request->country_id,
                     'has_active_campaigns' => false,
-
                 ]
             );
             return response()->json(
@@ -62,6 +57,7 @@ class UserController extends Controller
             );
         }
     }
+
     public function registerBrand(Request $request)
     {
         try {
@@ -117,7 +113,7 @@ class UserController extends Controller
 
             $user = User::query()->where('user_email', $email)->first();
 
-            if (!Hash::check($password, $user->password)) {
+            if (!$user || !Hash::check($password, $user->password)) {
                 abort(401, 'Invalid credentials');
             }
             $token = $user->createToken('userToken')->plainTextToken;
@@ -143,17 +139,37 @@ class UserController extends Controller
             );
         }
     }
+
     public function getProfile(Request $request)
     {
         $user = auth()->user();
 
-        return response()->json(
-            [
-                "success" => true,
-                "message" => "User",
-                "data" => $user
-            ],
-            Response::HTTP_OK
-        );
+        if ($user->user_role == 'brand') {
+            $brand = Brand::query()->where('user_id', $user->id)->first();
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "User",
+                    "data" => [
+                        "user" => $user,
+                        "brand" => $brand
+                    ]
+                ],
+                Response::HTTP_OK
+            );
+        } elseif ($user->user_role == 'streamer') {
+            $streamer = Streamer::query()->where('user_id', $user->id)->first();
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "User",
+                    "data" => [
+                        "user" => $user,
+                        "streamer" => $streamer
+                    ]
+                ],
+                Response::HTTP_OK
+            );
+        }
     }
 }
