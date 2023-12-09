@@ -12,7 +12,9 @@ class Streamer extends Authenticatable
       "country_id",
       'streamer_nick',
       'streamer_nif',
-      'streamer_platform'
+      'streamer_platform',
+      'image_stream',
+
 
    ];
 }

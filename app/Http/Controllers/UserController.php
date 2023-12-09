@@ -36,6 +36,7 @@ class UserController extends Controller
                     'streamer_revenue' => 0,
                     'country_id' => $request->country_id,
                     'has_active_campaigns' => false,
+                    'image_stream' => 'https://d.newsweek.com/en/full/846377/ninja-fortnite-drake.png'
                 ]
             );
             return response()->json(
