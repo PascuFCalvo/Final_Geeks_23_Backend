@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StreamerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,7 @@ Route::group([
 ], function () {
    Route::get('/profile', [UserController::class, 'getProfile']);
    Route::put('/editUserProfile', [UserController::class, 'editUserProfile']);
+   Route::put('/editStreamerProfile', [StreamerController::class, 'editStreamerProfile']);
 });
 
 Route::post('/registerStreamer', [UserController::class, 'registerStreamer']);
