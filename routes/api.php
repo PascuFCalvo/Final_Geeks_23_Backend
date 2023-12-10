@@ -49,10 +49,10 @@ Route::put('/updatePassword', [UserController::class, 'updatePassword']);
 
 //como superadmin eliminar un usuario en concreto, activarlo, ver todos los usuarios y ver un usuario en concreto
 
-Route::delete('/deleteUser{id}', [SuperAdminController::class, 'deleteUser']);
-Route::put('/activateUser{id}', [SuperAdminController::class, 'activateUser']);
-Route::get('/getAllUsers', [SuperAdminController::class, 'getAllUsers']);
-Route::get('/getUser{id}', [SuperAdminController::class, 'getUser']);
+// Route::delete('/deleteUser{id}', [SuperAdminController::class, 'deleteUser']);
+// Route::put('/activateUser{id}', [SuperAdminController::class, 'activateUser']);
+// Route::get('/getAllUsers', [SuperAdminController::class, 'getAllUsers']);
+// Route::get('/getUser{id}', [SuperAdminController::class, 'getUser']);
 
 //como marca ver todos los streamers dispobibles
 
@@ -79,7 +79,7 @@ Route::get('/getStream', [StreamerController::class, 'getStreamInfo']);
 
 //como superadmin validar un stream 
 
-Route::put('/validateStream', [SuperAdminController::class, 'validateStream']);
+// Route::put('/validateStream', [SuperAdminController::class, 'validateStream']);
 
 //como streamer cobrar un stream ya validado
 
