@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\StreamerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -31,13 +32,14 @@ Route::group([
    Route::get('/profile', [UserController::class, 'getProfile']);
    Route::put('/editUserProfile', [UserController::class, 'editUserProfile']);
    Route::put('/editStreamerProfile', [StreamerController::class, 'editStreamerProfile']);
+   Route::put('/editBrandProfile', [BrandController::class, 'editBrandProfile']);
+   Route::put('/inactivate', [UserController::class, 'inactivate']);
 });
 
 Route::post('/registerStreamer', [UserController::class, 'registerStreamer']);
 Route::post('/registerBrand', [UserController::class, 'registerBrand']);
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout']);
-Route::put('/inactivate', [UserController::class, 'inactivate']);
 Route::get('/getCountries', [UserController::class, 'getCountries']);
 
 //como usuario actualizar mis credenciales de email y password

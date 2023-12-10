@@ -112,6 +112,8 @@ class UserController extends Controller
     public function login(Request $request)
     {
         try {
+
+
             $email = $request->email;
             $password = $request->password;
 
@@ -120,6 +122,17 @@ class UserController extends Controller
             if (!$user || !Hash::check($password, $user->password)) {
                 abort(401, 'Invalid credentials');
             }
+
+            if ($user->is_active === false || $user->is_active === 0) {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "User is inactive"
+                    ],
+                    Response::HTTP_UNAUTHORIZED
+                );
+            }
+
             $token = $user->createToken('userToken')->plainTextToken;
             return response()->json(
                 [
@@ -227,6 +240,35 @@ class UserController extends Controller
                 [
                     "success" => false,
                     "message" => "Error editing user profile"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+    public function inactivate(Request $request)
+    {
+        try {
+            $user = User::query()->find(auth()->user()->id);
+            $user->is_active = false;
+            $user->save();
+            $accessToken = $request->bearerToken();
+            $token = PersonalAccessToken::findToken($accessToken);
+            $token->delete();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "User inactivated",
+                    "data" => $user
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error inactivating user"
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
