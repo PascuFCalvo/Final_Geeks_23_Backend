@@ -28,8 +28,8 @@ Route::group([
    "middleware" => "auth:sanctum"
 ], function () {
    Route::get('/profile', [UserController::class, 'getProfile']);
+   Route::put('/editUserProfile', [UserController::class, 'editUserProfile']);
 });
-
 
 Route::post('/registerStreamer', [UserController::class, 'registerStreamer']);
 Route::post('/registerBrand', [UserController::class, 'registerBrand']);

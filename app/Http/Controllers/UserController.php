@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
+use Laravel\Sanctum\PersonalAccessToken;
+
 
 class UserController extends Controller
 {
@@ -192,6 +194,39 @@ class UserController extends Controller
                 [
                     "success" => false,
                     "message" => "Error getting countries"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+    public function editUserProfile(Request $request)
+    {
+        try {
+            $user = User::query()->find(auth()->user()->id);
+            $user->user_name = $request->input("user_name");
+            $user->user_email = $request->input("user_email");
+            $user->user_phone = $request->input("user_phone");
+            $user->user_avatar_link = $request->input("user_avatar_link");
+
+            $user->save();
+            $accessToken = $request->bearerToken();
+            $token = PersonalAccessToken::findToken($accessToken);
+            $token->delete();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "User updated",
+                    "data" => $user
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error editing user profile"
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
