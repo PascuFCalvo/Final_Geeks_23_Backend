@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class Campaign extends Authenticatable
+{
+
+   protected $fillable = [
+
+
+      'campaign_streamers_on_it'
+
+
+   ];
+
+   protected $attributes = [
+      'campaign_streamers_on_it' => 0,
+   ];
+}

@@ -34,10 +34,11 @@ Route::group([
    Route::put('/editStreamerProfile', [StreamerController::class, 'editStreamerProfile']);
    Route::put('/editBrandProfile', [BrandController::class, 'editBrandProfile']);
    Route::put('/inactivate', [UserController::class, 'inactivate']);
+   Route::post('/registerStreamer', [UserController::class, 'registerStreamer']);
+   Route::post('/registerBrand', [UserController::class, 'registerBrand']);
+   Route::post('/createStream', [StreamerController::class, 'reportAStream']);
 });
 
-Route::post('/registerStreamer', [UserController::class, 'registerStreamer']);
-Route::post('/registerBrand', [UserController::class, 'registerBrand']);
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout']);
 Route::get('/getCountries', [UserController::class, 'getCountries']);
@@ -72,7 +73,6 @@ Route::get('/getCampaign', [BrandController::class, 'getCampaignInfo']);
 
 //como streamer crear un stream
 
-Route::post('/createStream', [StreamerController::class, 'createStream']);
 Route::delete('/deleteStream', [StreamerController::class, 'deleteStream']);
 Route::put('/updateStream', [StreamerController::class, 'updateStream']);
 Route::get('/getStream', [StreamerController::class, 'getStreamInfo']);
