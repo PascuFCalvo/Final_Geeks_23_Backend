@@ -38,6 +38,7 @@ Route::group([
    Route::post('/registerBrand', [UserController::class, 'registerBrand']);
    Route::post('/createStream', [StreamerController::class, 'reportAStream']);
    Route::get('/getStreamsByStreamer', [StreamerController::class, 'getStreamsByStreamer']);
+   Route::get('/getAllCampaigns', [StreamerController::class, 'getAllCampaigns']);
 });
 
 Route::get('/getAllStreams', [StreamerController::class, 'getAllStreams']);
@@ -64,7 +65,6 @@ Route::get('/getAllStreamers', [BrandController::class, 'getAllStreamers']);
 //como streamer ver todas las marcas y todas las campañas disponibles
 
 Route::get('/getAllBrands', [StreamerController::class, 'getAllBrands']);
-Route::get('/getAllCampaigns', [StreamerController::class, 'getAllCampaigns']);
 
 //como marca crear una campaña
 

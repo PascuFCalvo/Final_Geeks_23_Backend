@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Campaign;
 use App\Models\Stream;
 use App\Models\Streamer;
 use App\Models\User;
@@ -143,6 +143,31 @@ class StreamerController extends Controller
                 [
                     "success" => false,
                     "message" => "Error getting streams"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    public function getAllCampaigns(Request $request)
+    {
+        try {
+            $campaigns = Campaign::all();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "campaigns",
+                    "campaigns" => $campaigns
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error getting campaigns"
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
