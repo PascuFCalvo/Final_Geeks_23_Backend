@@ -97,4 +97,55 @@ class StreamerController extends Controller
             );
         }
     }
+    public function getStreamsByStreamer(Request $request)
+    {
+        try {
+            $user = User::query()->find(auth()->user()->id);
+            $streamer = Streamer::query()->where('user_id', $user->id)->first();
+            $streams = Stream::query()->where('streamer_id', $streamer->id)->get();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "streams",
+                    "streams" => $streams
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error getting streams"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    public function getAllStreams(Request $request)
+    {
+        try {
+            $streams = Stream::all();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "streams",
+                    "streams" => $streams
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error getting streams"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
 }

@@ -37,8 +37,10 @@ Route::group([
    Route::post('/registerStreamer', [UserController::class, 'registerStreamer']);
    Route::post('/registerBrand', [UserController::class, 'registerBrand']);
    Route::post('/createStream', [StreamerController::class, 'reportAStream']);
+   Route::get('/getStreamsByStreamer', [StreamerController::class, 'getStreamsByStreamer']);
 });
 
+Route::get('/getAllStreams', [StreamerController::class, 'getAllStreams']);
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout']);
 Route::get('/getCountries', [UserController::class, 'getCountries']);
@@ -75,7 +77,6 @@ Route::get('/getCampaign', [BrandController::class, 'getCampaignInfo']);
 
 Route::delete('/deleteStream', [StreamerController::class, 'deleteStream']);
 Route::put('/updateStream', [StreamerController::class, 'updateStream']);
-Route::get('/getStream', [StreamerController::class, 'getStreamInfo']);
 
 //como superadmin validar un stream 
 
