@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Campaign;
+use App\Models\Country;
 use App\Models\Stream;
 use App\Models\Streamer;
 use App\Models\User;
@@ -56,7 +57,10 @@ class StreamerController extends Controller
             $stream_check_picture_2 = $request->input("stream_check_picture_2");
             $campaign_id = $request->input("campaign_id");
             $country_id = $request->input("country_id");
-
+            $campaign = Campaign::query()->find($campaign_id);
+            $country = Country::query()->find($country_id);
+            $total_to_receive = $stream_ammount_of_viewers * $campaign->price_per_single_view *  $country->country_bonus;
+            
             $Stream = Stream::query()->create([
                 "streamer_id" => $streamer->id,
                 "stream_title" => $stream_title,
@@ -67,6 +71,7 @@ class StreamerController extends Controller
                 "stream_check_picture_2" => $stream_check_picture_2,
                 "campaign_id" => $campaign_id,
                 "country_id" => $country_id,
+                "stream_total_to_receive" => $total_to_receive,
             ]);
 
             return response()->json(

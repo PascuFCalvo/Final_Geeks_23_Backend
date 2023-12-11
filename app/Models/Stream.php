@@ -17,6 +17,7 @@ class Stream extends Authenticatable
       "stream_ammount_of_viewers",
       "stream_check_picture_1",
       "stream_check_picture_2",
+      "stream_total_to_receive",
       "campaign_id",
       "country_id",
 
