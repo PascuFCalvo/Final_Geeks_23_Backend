@@ -45,7 +45,10 @@ class StreamerController extends Controller
     }
 
     public function reportAStream(Request $request)
+
+
     {
+
         try {
             $user = User::query()->find(auth()->user()->id);
             $streamer = Streamer::query()->where('user_id', $user->id)->first();
@@ -60,7 +63,7 @@ class StreamerController extends Controller
             $campaign = Campaign::query()->find($campaign_id);
             $country = Country::query()->find($country_id);
             $total_to_receive = $stream_ammount_of_viewers * $campaign->price_per_single_view *  $country->country_bonus;
-            
+
             $Stream = Stream::query()->create([
                 "streamer_id" => $streamer->id,
                 "stream_title" => $stream_title,

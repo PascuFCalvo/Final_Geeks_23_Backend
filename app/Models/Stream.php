@@ -9,7 +9,7 @@ class Stream extends Authenticatable
 
    protected $fillable = [
 
-
+      
       "streamer_id",
       "stream_title",
       "stream_description",

@@ -34,13 +34,13 @@ Route::group([
    Route::put('/editStreamerProfile', [StreamerController::class, 'editStreamerProfile']);
    Route::put('/editBrandProfile', [BrandController::class, 'editBrandProfile']);
    Route::put('/inactivate', [UserController::class, 'inactivate']);
-   Route::post('/registerStreamer', [UserController::class, 'registerStreamer']);
-   Route::post('/registerBrand', [UserController::class, 'registerBrand']);
-   Route::post('/createStream', [StreamerController::class, 'reportAStream']);
    Route::get('/getStreamsByStreamer', [StreamerController::class, 'getStreamsByStreamer']);
    Route::get('/getAllCampaigns', [StreamerController::class, 'getAllCampaigns']);
+   Route::post('/createStream', [StreamerController::class, 'reportAStream']);
 });
 
+Route::post('/registerBrand', [UserController::class, 'registerBrand']);
+Route::post('/registerStreamer', [UserController::class, 'registerStreamer']);
 Route::get('/getAllStreams', [StreamerController::class, 'getAllStreams']);
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout']);
