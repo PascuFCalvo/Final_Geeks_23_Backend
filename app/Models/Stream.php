@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Stream extends Authenticatable
@@ -23,4 +24,6 @@ class Stream extends Authenticatable
 
 
    ];
+
+   
 }

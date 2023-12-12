@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Campaign extends Authenticatable
@@ -18,4 +19,6 @@ class Campaign extends Authenticatable
    protected $attributes = [
       'campaign_streamers_on_it' => 0,
    ];
+
+
 }

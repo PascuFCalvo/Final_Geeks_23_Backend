@@ -75,6 +75,7 @@ class StreamerController extends Controller
                 "campaign_id" => $campaign_id,
                 "country_id" => $country_id,
                 "stream_total_to_receive" => $total_to_receive,
+
             ]);
 
             return response()->json(
@@ -112,6 +113,20 @@ class StreamerController extends Controller
             $streamer = Streamer::query()->where('user_id', $user->id)->first();
             $streams = Stream::query()->where('streamer_id', $streamer->id)->get();
 
+            if ($streams[0] === []) {
+                $streamer->has_active_campaigns = false;
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "No streams found"
+                    ],
+                    Response::HTTP_INTERNAL_SERVER_ERROR
+                );
+            }
+
+            $streamer->has_active_campaigns = true;
+            $streamer->save();
+
             return response()->json(
                 [
                     "success" => true,
@@ -135,7 +150,7 @@ class StreamerController extends Controller
     public function getAllStreams(Request $request)
     {
         try {
-            $streams = Stream::all();
+            $streams = Stream::query()->get();
 
             return response()->json(
                 [
@@ -160,7 +175,7 @@ class StreamerController extends Controller
     public function getAllCampaigns(Request $request)
     {
         try {
-            $campaigns = Campaign::all();
+            $campaigns = Campaign::query()->get();
 
             return response()->json(
                 [
@@ -176,6 +191,59 @@ class StreamerController extends Controller
                 [
                     "success" => false,
                     "message" => "Error getting campaigns"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+
+    public function payStream(Request $request)
+    {
+
+        try {
+            dump(auth());
+            $user = User::query()->find(auth()->user()->id);
+            $streamer = Streamer::query()->where('user_id', $user->id)->first();
+            $stream = Stream::query()->find($request->input("stream_id"));
+
+            if ($stream->is_stream_payed) {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "stream already paid"
+                    ],
+                    Response::HTTP_INTERNAL_SERVER_ERROR
+                );
+            }
+            if (!$stream->is_stream_approved) {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "stream not approved"
+                    ],
+                    Response::HTTP_INTERNAL_SERVER_ERROR
+                );
+            }
+            $streamer->streamer_revenue = $streamer->streamer_revenue + $stream->stream_total_to_receive;
+            $stream->is_stream_payed = true;
+            $streamer->save();
+            $stream->save();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "stream paid",
+                    "stream" => $stream
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "stream not paid"
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );

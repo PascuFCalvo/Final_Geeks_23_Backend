@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\StreamerController;
 use App\Http\Controllers\UserController;
@@ -23,25 +24,41 @@ use Illuminate\Support\Facades\Route;
 
 
 
-//Esto faltaria ordenarlo por middlewares y por roles
 
-//como usuario registrarse como streamer o como marca y loguearse, ver mi perfil y ponerme en estado inactivo
+
+
+
 Route::group([
-   "middleware" => "auth:sanctum"
+   'middleware' => ['auth:sanctum']
 ], function () {
+   Route::delete('/deleteUser{id}', [AdminController::class, 'deleteUserById']);
+   Route::put('/activateUser{id}', [AdminController::class, 'activateUserById']);
+   Route::put('/activateUser{id}', [AdminController::class, 'inactivateUserById']);
+   Route::get('/getAllUsers', [AdminController::class, 'getAllUsers']);
+   Route::get('/getUser{id}', [AdminController::class, 'getUserById']);
+   Route::get('/getAllStreams', [AdminController::class, 'getAllStreams']);
+   Route::put('/editBrandProfile', [BrandController::class, 'editBrandProfile']);
    Route::get('/profile', [UserController::class, 'getProfile']);
    Route::put('/editUserProfile', [UserController::class, 'editUserProfile']);
+   Route::get('/getAllBrands', [StreamerController::class, 'getAllBrands']);
+   Route::get('/getAllStreamers', [BrandController::class, 'getAllStreamers']);
+   Route::put('/inactivateUser', [UserController::class, 'inactivate']);
    Route::put('/editStreamerProfile', [StreamerController::class, 'editStreamerProfile']);
-   Route::put('/editBrandProfile', [BrandController::class, 'editBrandProfile']);
-   Route::put('/inactivate', [UserController::class, 'inactivate']);
    Route::get('/getStreamsByStreamer', [StreamerController::class, 'getStreamsByStreamer']);
-   Route::get('/getAllCampaigns', [StreamerController::class, 'getAllCampaigns']);
    Route::post('/createStream', [StreamerController::class, 'reportAStream']);
+   Route::put('/payStream', [StreamerController::class, 'payStream']);
 });
 
+
+
+
+Route::get('/getAllCampaigns', [StreamerController::class, 'getAllCampaigns']);
 Route::post('/registerBrand', [UserController::class, 'registerBrand']);
 Route::post('/registerStreamer', [UserController::class, 'registerStreamer']);
-Route::get('/getAllStreams', [StreamerController::class, 'getAllStreams']);
+
+
+
+
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout']);
 Route::get('/getCountries', [UserController::class, 'getCountries']);
@@ -53,18 +70,13 @@ Route::put('/updatePassword', [UserController::class, 'updatePassword']);
 
 //como superadmin eliminar un usuario en concreto, activarlo, ver todos los usuarios y ver un usuario en concreto
 
-// Route::delete('/deleteUser{id}', [SuperAdminController::class, 'deleteUser']);
-// Route::put('/activateUser{id}', [SuperAdminController::class, 'activateUser']);
-// Route::get('/getAllUsers', [SuperAdminController::class, 'getAllUsers']);
-// Route::get('/getUser{id}', [SuperAdminController::class, 'getUser']);
+
 
 //como marca ver todos los streamers dispobibles
 
-Route::get('/getAllStreamers', [BrandController::class, 'getAllStreamers']);
 
 //como streamer ver todas las marcas y todas las campañas disponibles
 
-Route::get('/getAllBrands', [StreamerController::class, 'getAllBrands']);
 
 //como marca crear una campaña
 
@@ -83,5 +95,3 @@ Route::put('/updateStream', [StreamerController::class, 'updateStream']);
 // Route::put('/validateStream', [SuperAdminController::class, 'validateStream']);
 
 //como streamer cobrar un stream ya validado
-
-Route::put('/payStream', [StreamerController::class, 'payStream']);
