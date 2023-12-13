@@ -11,14 +11,15 @@ class Campaign extends Authenticatable
    protected $fillable = [
 
 
-      'campaign_streamers_on_it'
+      'campaign_streamers_on_it',
+      "campaign_name",
+      "campaign_description",
+      "campaign_start_date",
+      "price_per_single_view",
 
 
    ];
 
-   protected $attributes = [
-      'campaign_streamers_on_it' => 0,
-   ];
 
    public function brand()
    {

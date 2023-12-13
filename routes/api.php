@@ -48,6 +48,8 @@ Route::group([
    Route::post('/createStream', [StreamerController::class, 'reportAStream']);
    Route::get('/getAllCampaigns', [StreamerController::class, 'getAllCampaigns']);
    Route::put('/payStream', [StreamerController::class, 'payStream']);
+   Route::post('/createACampaign', [BrandController::class, 'createACampaign']);
+   Route::get('/getCampaignsAsABrand', [BrandController::class, 'getCampaignsAsABrand']);
 });
 
 
@@ -64,34 +66,3 @@ Route::post('/logout', [UserController::class, 'logout']);
 Route::get('/getCountries', [UserController::class, 'getCountries']);
 
 //como usuario actualizar mis credenciales de email y password
-
-Route::put('/updateEmail', [UserController::class, 'updateEmail']);
-Route::put('/updatePassword', [UserController::class, 'updatePassword']);
-
-//como superadmin eliminar un usuario en concreto, activarlo, ver todos los usuarios y ver un usuario en concreto
-
-
-
-//como marca ver todos los streamers dispobibles
-
-
-//como streamer ver todas las marcas y todas las campañas disponibles
-
-
-//como marca crear una campaña
-
-Route::post('/createCampaign', [BrandController::class, 'createCampaign']);
-Route::delete('/deleteCampaign', [BrandController::class, 'deleteCampaign']);
-Route::put('/updateCampaign', [BrandController::class, 'updateCampaign']);
-Route::get('/getCampaign', [BrandController::class, 'getCampaignInfo']);
-
-//como streamer crear un stream
-
-Route::delete('/deleteStream', [StreamerController::class, 'deleteStream']);
-Route::put('/updateStream', [StreamerController::class, 'updateStream']);
-
-//como superadmin validar un stream 
-
-// Route::put('/validateStream', [SuperAdminController::class, 'validateStream']);
-
-//como streamer cobrar un stream ya validado
