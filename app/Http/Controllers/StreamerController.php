@@ -21,6 +21,7 @@ class StreamerController extends Controller
             $streamer = Streamer::query()->where('user_id', $user->id)->first();
             $streamer->streamer_nick = $request->input("streamer_nick");
             $streamer->streamer_platform = $request->input("streamer_platform");
+            $streamer->streamer_revenue = $request->input("streamer_revenue");
 
             $streamer->save();
 
