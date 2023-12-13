@@ -22,4 +22,6 @@ class Brand extends Authenticatable
 
 
    ];
+
+   
 }

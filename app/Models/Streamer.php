@@ -20,6 +20,4 @@ class Streamer extends Authenticatable
 
 
    ];
-
- 
 }

@@ -20,5 +20,8 @@ class Campaign extends Authenticatable
       'campaign_streamers_on_it' => 0,
    ];
 
-
+   public function brand()
+   {
+      return $this->belongsTo(Brand::class);
+   }
 }

@@ -9,7 +9,4 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class CampaignStramers extends Model
 {
     use HasFactory;
-
-
-
 }

@@ -10,7 +10,7 @@ class Stream extends Authenticatable
 
    protected $fillable = [
 
-      
+
       "streamer_id",
       "stream_title",
       "stream_description",
@@ -21,9 +21,18 @@ class Stream extends Authenticatable
       "stream_total_to_receive",
       "campaign_id",
       "country_id",
+      "is_stream_payed",
 
 
    ];
 
-   
+   public function streamer()
+   {
+      return $this->belongsTo(Streamer::class);
+   }
+
+   public function campaign()
+   {
+      return $this->belongsTo(Campaign::class);
+   }
 }

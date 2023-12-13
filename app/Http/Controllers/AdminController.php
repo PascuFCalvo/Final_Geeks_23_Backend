@@ -10,9 +10,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends Controller
 {
-    public function getAllUsers(Request $request){
+    public function getAllUsers(Request $request)
+    {
         try {
-            $users = User::query()->get();
+            $users = User::query()
+                ->orderBy('user_role', 'desc')->get();
             return response()->json(
                 [
                     "success" => true,
@@ -33,7 +35,8 @@ class AdminController extends Controller
         }
     }
 
-    public function getUserById($id){
+    public function getUserById($id)
+    {
         try {
             $user = User::query()
                 ->where('id', $id)
@@ -58,7 +61,8 @@ class AdminController extends Controller
         }
     }
 
-    public function deleteUserById($id){
+    public function deleteUserById($id)
+    {
         try {
             $user = User::query()
                 ->where('id', $id)
@@ -84,7 +88,8 @@ class AdminController extends Controller
         }
     }
 
-    public function activateUserById($id){
+    public function activateUserById($id)
+    {
         try {
             $user = User::query()
                 ->where('id', $id)
@@ -111,7 +116,8 @@ class AdminController extends Controller
         }
     }
 
-    public function inactivateUserById($id){
+    public function inactivateUserById($id)
+    {
         try {
             $user = User::query()
                 ->where('id', $id)
@@ -161,5 +167,5 @@ class AdminController extends Controller
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
-    }   
+    }
 }

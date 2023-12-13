@@ -62,6 +62,7 @@ class StreamerController extends Controller
             $country_id = $request->input("country_id");
             $campaign = Campaign::query()->find($campaign_id);
             $country = Country::query()->find($country_id);
+            $price_per_single_view = $campaign->price_per_single_view;
             $total_to_receive = $stream_ammount_of_viewers * $campaign->price_per_single_view *  $country->country_bonus;
 
             $Stream = Stream::query()->create([
@@ -74,6 +75,7 @@ class StreamerController extends Controller
                 "stream_check_picture_2" => $stream_check_picture_2,
                 "campaign_id" => $campaign_id,
                 "country_id" => $country_id,
+                "price_per_single_view" => $price_per_single_view,
                 "stream_total_to_receive" => $total_to_receive,
 
             ]);
@@ -111,9 +113,16 @@ class StreamerController extends Controller
         try {
             $user = User::query()->find(auth()->user()->id);
             $streamer = Streamer::query()->where('user_id', $user->id)->first();
-            $streams = Stream::query()->where('streamer_id', $streamer->id)->get();
+            $streams = Stream::query()->where('streamer_id', $streamer->id)->orderBy('created_at', 'desc')->get();
 
-            if ($streams[0] === []) {
+            if (
+                $streams[0] === [] ||
+                $streams[0] === null ||
+                $streams[0] === "" ||
+                $streams[0] === false ||
+                $streams[0] === 0 ||
+                !$streams
+            ) {
                 $streamer->has_active_campaigns = false;
                 return response()->json(
                     [
@@ -202,10 +211,11 @@ class StreamerController extends Controller
     {
 
         try {
-            dump(auth());
+            log::info($request->input("stream_id"));
             $user = User::query()->find(auth()->user()->id);
             $streamer = Streamer::query()->where('user_id', $user->id)->first();
             $stream = Stream::query()->find($request->input("stream_id"));
+
 
             if ($stream->is_stream_payed) {
                 return response()->json(
