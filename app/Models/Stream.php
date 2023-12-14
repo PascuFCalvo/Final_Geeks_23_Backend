@@ -28,11 +28,11 @@ class Stream extends Authenticatable
 
    public function streamer()
    {
-      return $this->belongsTo(Streamer::class);
+      return $this->belongsTo(Streamer::class, "streamer_id");
    }
 
    public function campaign()
    {
-      return $this->belongsTo(Campaign::class);
+      return $this->belongsTo(Campaign::class, "campaign_id");
    }
 }

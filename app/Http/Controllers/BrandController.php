@@ -123,4 +123,29 @@ class BrandController extends Controller
             );
         }
     }
+
+    public function deleteACampaign(Request $request, $id)
+    {
+        try {
+            $deletedCampaign = Campaign::destroy($id);
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "campaign deleted successfully",
+                    "data" => $deletedCampaign
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error deleting videogame"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
 }

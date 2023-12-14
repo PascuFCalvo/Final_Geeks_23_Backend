@@ -50,17 +50,12 @@ Route::group([
    Route::put('/payStream', [StreamerController::class, 'payStream']);
    Route::post('/createACampaign', [BrandController::class, 'createACampaign']);
    Route::get('/getCampaignsAsABrand', [BrandController::class, 'getCampaignsAsABrand']);
+   Route::delete('/deleteCampaign/{id}', [BrandController::class, 'deleteACampaign']);
 });
-
-
 
 
 Route::post('/registerBrand', [UserController::class, 'registerBrand']);
 Route::post('/registerStreamer', [UserController::class, 'registerStreamer']);
-
-
-
-
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout']);
 Route::get('/getCountries', [UserController::class, 'getCountries']);
