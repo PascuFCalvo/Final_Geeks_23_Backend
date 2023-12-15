@@ -124,9 +124,10 @@ class BrandController extends Controller
         }
     }
 
-    public function deleteACampaign(Request $request, $id)
+    public function deleteACampaign($id)
     {
         try {
+            
             $deletedCampaign = Campaign::destroy($id);
             return response()->json(
                 [
@@ -142,7 +143,7 @@ class BrandController extends Controller
             return response()->json(
                 [
                     "success" => false,
-                    "message" => "Error deleting videogame"
+                    "message" => "Error deleting campaign"
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );

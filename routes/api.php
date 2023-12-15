@@ -46,11 +46,14 @@ Route::group([
    Route::put('/editStreamerProfile', [StreamerController::class, 'editStreamerProfile']);
    Route::get('/getStreamsByStreamer', [StreamerController::class, 'getStreamsByStreamer']);
    Route::post('/createStream', [StreamerController::class, 'reportAStream']);
-   Route::get('/getAllCampaigns', [StreamerController::class, 'getAllCampaigns']);
+   Route::get('/getAllCampaigns', [AdminController::class, 'getAllCampaigns']);
    Route::put('/payStream', [StreamerController::class, 'payStream']);
    Route::post('/createACampaign', [BrandController::class, 'createACampaign']);
    Route::get('/getCampaignsAsABrand', [BrandController::class, 'getCampaignsAsABrand']);
    Route::delete('/deleteCampaign/{id}', [BrandController::class, 'deleteACampaign']);
+   Route::get('/getAllBrands', [AdminController::class, 'getAllBrands']);
+   Route::get('/getAllStreamers', [AdminController::class, 'getAllStreamers']);
+   Route::get('/getAllStreams', [AdminController::class, 'getAllStreams']);
 });
 
 

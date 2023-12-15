@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
+use App\Models\Campaign;
 use App\Models\Stream;
+use App\Models\Streamer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -14,7 +17,7 @@ class AdminController extends Controller
     {
         try {
             $users = User::query()
-                ->orderBy('user_role', 'desc')->get();
+                ->orderBy('user_name', 'asc')->get();
             return response()->json(
                 [
                     "success" => true,
@@ -147,7 +150,9 @@ class AdminController extends Controller
     public function getAllStreams(Request $request)
     {
         try {
-            $streams = Stream::all();
+            $streams = Stream::query()
+                ->orderBy('stream_date', 'asc')
+                ->get();
 
             return response()->json(
                 [
@@ -163,6 +168,88 @@ class AdminController extends Controller
                 [
                     "success" => false,
                     "message" => "Error getting streams"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    public function getAllCampaigns(Request $request)
+    {
+        try {
+            $campaigns = Campaign::query()
+                ->orderBy('campaign_name', 'desc')
+                ->get();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "campaigns",
+                    "campaigns" => $campaigns
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error getting campaigns"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    public function getAllBrands(Request $request)
+    {
+        try {
+            $brands = Brand::query()
+                ->orderBy('brand_name', 'asc')
+                ->get();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "brands",
+                    "brands" => $brands
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error getting brands"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+    public function getAllStreamers(Request $request)
+    {
+        try {
+            $streamers = Streamer::query()
+                ->orderBy('streamer_nick', 'asc')
+                ->get();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "streamers",
+                    "streamers" => $streamers
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error getting streamers"
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );

@@ -187,6 +187,17 @@ class UserController extends Controller
                 ],
                 Response::HTTP_OK
             );
+        } elseif ($user->user_role == 'admin') {
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "User",
+                    "data" => [
+                        "user" => $user,
+                    ]
+                ],
+                Response::HTTP_OK
+            );
         }
     }
     public function getCountries(Request $request)

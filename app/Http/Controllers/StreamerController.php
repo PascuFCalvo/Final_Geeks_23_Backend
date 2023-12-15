@@ -22,6 +22,7 @@ class StreamerController extends Controller
             $streamer->streamer_nick = $request->input("streamer_nick");
             $streamer->streamer_platform = $request->input("streamer_platform");
             $streamer->streamer_revenue = $request->input("streamer_revenue");
+            $streamer->image_stream = $request->input("image_stream");
 
             $streamer->save();
 
@@ -182,30 +183,7 @@ class StreamerController extends Controller
         }
     }
 
-    public function getAllCampaigns(Request $request)
-    {
-        try {
-            $campaigns = Campaign::query()->get();
 
-            return response()->json(
-                [
-                    "success" => true,
-                    "message" => "campaigns",
-                    "campaigns" => $campaigns
-                ],
-                Response::HTTP_OK
-            );
-        } catch (\Throwable $th) {
-            Log::error($th->getMessage());
-            return response()->json(
-                [
-                    "success" => false,
-                    "message" => "Error getting campaigns"
-                ],
-                Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
-    }
 
 
     public function payStream(Request $request)
