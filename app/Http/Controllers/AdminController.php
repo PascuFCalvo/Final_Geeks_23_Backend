@@ -91,12 +91,10 @@ class AdminController extends Controller
         }
     }
 
-    public function activateUserById($id)
+    public function activateAUserById($id)
     {
         try {
-            $user = User::query()
-                ->where('id', $id)
-                ->first();
+            $user = User::query()->find($id);
             $user->is_active = true;
             $user->save();
             return response()->json(
@@ -119,7 +117,7 @@ class AdminController extends Controller
         }
     }
 
-    public function inactivateUserById($id)
+    public function inactivateAUserById($id)
     {
         try {
             $user = User::query()

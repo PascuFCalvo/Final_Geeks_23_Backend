@@ -32,8 +32,7 @@ Route::group([
    'middleware' => ['auth:sanctum']
 ], function () {
    // Route::delete('/deleteUser{id}', [AdminController::class, 'deleteUserById']);
-   // Route::put('/activateUser{id}', [AdminController::class, 'activateUserById']);
-   // Route::put('/activateUser{id}', [AdminController::class, 'inactivateUserById']);
+
    // Route::get('/getUser{id}', [AdminController::class, 'getUserById']);
    Route::get('/getAllUsers', [AdminController::class, 'getAllUsers']);
    Route::get('/getAllStreams', [AdminController::class, 'getAllStreams']);
@@ -56,11 +55,11 @@ Route::group([
    Route::get('/getAllStreams', [AdminController::class, 'getAllStreams']);
    Route::get('/getAllActivatedCampaigns', [StreamerController::class, "getAllActivatedCampaigns"]);
 });
+Route::put('/inactivateAUserById/{id}', [AdminController::class, 'inactivateAUserById']);
+Route::put('/activateAUserById/{id}', [AdminController::class, 'activateAUserById']);
 Route::put('/inactivateACampaign/{id}', [BrandController::class, "inactivateACampaign"]);
 Route::put('/activateACampaign/{id}', [BrandController::class, "activateACampaign"]);
 Route::put('/approveAStream/{id}', [AdminController::class, "approveAStream"]);
-
-
 Route::post('/registerBrand', [UserController::class, 'registerBrand']);
 Route::post('/registerStreamer', [UserController::class, 'registerStreamer']);
 Route::post('/login', [UserController::class, 'login']);
