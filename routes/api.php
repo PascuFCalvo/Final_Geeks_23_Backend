@@ -31,11 +31,11 @@ use Illuminate\Support\Facades\Route;
 Route::group([
    'middleware' => ['auth:sanctum']
 ], function () {
-   Route::delete('/deleteUser{id}', [AdminController::class, 'deleteUserById']);
-   Route::put('/activateUser{id}', [AdminController::class, 'activateUserById']);
-   Route::put('/activateUser{id}', [AdminController::class, 'inactivateUserById']);
+   // Route::delete('/deleteUser{id}', [AdminController::class, 'deleteUserById']);
+   // Route::put('/activateUser{id}', [AdminController::class, 'activateUserById']);
+   // Route::put('/activateUser{id}', [AdminController::class, 'inactivateUserById']);
+   // Route::get('/getUser{id}', [AdminController::class, 'getUserById']);
    Route::get('/getAllUsers', [AdminController::class, 'getAllUsers']);
-   Route::get('/getUser{id}', [AdminController::class, 'getUserById']);
    Route::get('/getAllStreams', [AdminController::class, 'getAllStreams']);
    Route::put('/editBrandProfile', [BrandController::class, 'editBrandProfile']);
    Route::get('/profile', [UserController::class, 'getProfile']);
@@ -54,8 +54,10 @@ Route::group([
    Route::get('/getAllBrands', [AdminController::class, 'getAllBrands']);
    Route::get('/getAllStreamers', [AdminController::class, 'getAllStreamers']);
    Route::get('/getAllStreams', [AdminController::class, 'getAllStreams']);
-   Route::get('/getAllActivatedCampaigns',[StreamerController::class,"getAllActivatedCampaigns"]);
+   Route::get('/getAllActivatedCampaigns', [StreamerController::class, "getAllActivatedCampaigns"]);
 });
+Route::put('/inactivateACampaign/{id}', [BrandController::class, "inactivateACampaign"]);
+Route::put('/activateACampaign/{id}', [BrandController::class, "activateACampaign"]);
 
 
 Route::post('/registerBrand', [UserController::class, 'registerBrand']);

@@ -127,7 +127,7 @@ class BrandController extends Controller
     public function deleteACampaign($id)
     {
         try {
-            
+
             $deletedCampaign = Campaign::destroy($id);
             return response()->json(
                 [
@@ -144,6 +144,60 @@ class BrandController extends Controller
                 [
                     "success" => false,
                     "message" => "Error deleting campaign"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+    public function activateACampaign($id)
+    {
+        try {
+
+            $campaign = Campaign::query()->find($id);
+            $campaign->is_active = true;
+            $campaign->save();
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "campaign activated successfully",
+                    "data" => $campaign
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error activating campaign"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    public function inactivateACampaign($id)
+    {
+        try {
+            $campaign = Campaign::query()->find($id);
+            $campaign->is_active = false;
+            $campaign->save();
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "campaign inactivated successfully",
+                    "data" => $campaign
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error inactivating campaign"
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
