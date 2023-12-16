@@ -238,4 +238,29 @@ class StreamerController extends Controller
             );
         }
     }
+
+    public function getAllActivatedCampaigns(Request $request)
+    {
+        try {
+            $campaigns = Campaign::query()->where('is_active', true)->get();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "campaigns",
+                    "campaigns" => $campaigns
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            log::error($th->getMessage());
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error getting campaigns"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
 }

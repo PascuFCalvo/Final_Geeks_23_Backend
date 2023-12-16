@@ -54,6 +54,7 @@ Route::group([
    Route::get('/getAllBrands', [AdminController::class, 'getAllBrands']);
    Route::get('/getAllStreamers', [AdminController::class, 'getAllStreamers']);
    Route::get('/getAllStreams', [AdminController::class, 'getAllStreams']);
+   Route::get('/getAllActivatedCampaigns',[StreamerController::class,"getAllActivatedCampaigns"]);
 });
 
 
