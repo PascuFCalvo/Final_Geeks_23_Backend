@@ -255,4 +255,30 @@ class AdminController extends Controller
             );
         }
     }
+    public function approveAStream($id)
+    {
+        try {
+            $stream = Stream::query()->find($id);
+            $stream->is_stream_approved = true;
+            $stream->save();
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "stream approved",
+                    "stream" => $stream
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error approving stream"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
 }

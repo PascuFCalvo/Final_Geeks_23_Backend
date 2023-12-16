@@ -58,6 +58,7 @@ Route::group([
 });
 Route::put('/inactivateACampaign/{id}', [BrandController::class, "inactivateACampaign"]);
 Route::put('/activateACampaign/{id}', [BrandController::class, "activateACampaign"]);
+Route::put('/approveAStream/{id}', [AdminController::class, "approveAStream"]);
 
 
 Route::post('/registerBrand', [UserController::class, 'registerBrand']);
