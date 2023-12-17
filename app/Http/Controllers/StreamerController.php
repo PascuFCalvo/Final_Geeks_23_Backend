@@ -263,4 +263,29 @@ class StreamerController extends Controller
             );
         }
     }
+
+    public function deleteAStreamById($id)
+    {
+        try {
+            $stream = Stream::query()->find($id);
+            $stream->delete();
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "stream deleted",
+                    "stream" => $stream
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            log::error($th->getMessage());
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error deleting stream"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
 }

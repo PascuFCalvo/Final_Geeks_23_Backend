@@ -31,9 +31,9 @@ use Illuminate\Support\Facades\Route;
 Route::group([
    'middleware' => ['auth:sanctum']
 ], function () {
-   // Route::delete('/deleteUser{id}', [AdminController::class, 'deleteUserById']);
+   
 
-   // Route::get('/getUser{id}', [AdminController::class, 'getUserById']);
+   
    Route::get('/getAllUsers', [AdminController::class, 'getAllUsers']);
    Route::get('/getAllStreams', [AdminController::class, 'getAllStreams']);
    Route::put('/editBrandProfile', [BrandController::class, 'editBrandProfile']);
@@ -50,6 +50,7 @@ Route::group([
    Route::post('/createACampaign', [BrandController::class, 'createACampaign']);
    Route::get('/getCampaignsAsABrand', [BrandController::class, 'getCampaignsAsABrand']);
    Route::delete('/deleteCampaign/{id}', [BrandController::class, 'deleteACampaign']);
+   Route::delete("/deleteAStreamById/{id}", [StreamerController::class, "deleteAStreamById"]);
    Route::get('/getAllBrands', [AdminController::class, 'getAllBrands']);
    Route::get('/getAllStreamers', [AdminController::class, 'getAllStreamers']);
    Route::get('/getAllStreams', [AdminController::class, 'getAllStreams']);
