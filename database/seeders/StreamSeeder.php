@@ -23,6 +23,7 @@ class StreamSeeder extends Seeder
             'stream_check_picture_2'=>'https://assets.help.twitch.tv/article/img/000002339-08.png',
             'campaign_id' => 1,
             'country_id' => 2,
+            'stream_total_to_receive' => '1000',
         ]);
 
         DB::table('streams')->insert([
@@ -35,6 +36,7 @@ class StreamSeeder extends Seeder
             'stream_check_picture_2'=>'https://assets.help.twitch.tv/article/img/000002339-08.png',
             'campaign_id' => 2,
             'country_id' => 1,
+            'stream_total_to_receive' => '1000',
         ]);
 
         DB::table('streams')->insert([
@@ -47,6 +49,7 @@ class StreamSeeder extends Seeder
             'stream_check_picture_2'=>'https://assets.help.twitch.tv/article/img/000002339-08.png',
             'campaign_id' => 4,
             'country_id' => 3,
+            'stream_total_to_receive' => '1000',
         ]);
 
         DB::table('streams')->insert([
@@ -59,6 +62,7 @@ class StreamSeeder extends Seeder
             'stream_check_picture_2'=>'https://assets.help.twitch.tv/article/img/000002339-08.png',
             'campaign_id' => 3,
             'country_id' => 4,
+            'stream_total_to_receive' => '1000',
         ]);
 
         DB::table('streams')->insert([
@@ -71,6 +75,7 @@ class StreamSeeder extends Seeder
             'stream_check_picture_2'=>'https://assets.help.twitch.tv/article/img/000002339-08.png',
             'campaign_id' => 1,
             'country_id' => 5,
+            'stream_total_to_receive' => '1000',
         ]);
 
         DB::table('streams')->insert([
@@ -83,6 +88,7 @@ class StreamSeeder extends Seeder
             'stream_check_picture_2'=>'https://assets.help.twitch.tv/article/img/000002339-08.png',
             'campaign_id' => 2,
             'country_id' => 6,
+            'stream_total_to_receive' => '1000',
         ]);
 
         DB::table('streams')->insert([
@@ -95,6 +101,7 @@ class StreamSeeder extends Seeder
             'stream_check_picture_2'=>'https://assets.help.twitch.tv/article/img/000002339-08.png',
             'campaign_id' => 2,
             'country_id' => 1,
+            'stream_total_to_receive' => '1000',
         ]);
 
         DB::table('streams')->insert([
@@ -107,6 +114,7 @@ class StreamSeeder extends Seeder
             'stream_check_picture_2'=>'https://assets.help.twitch.tv/article/img/000002339-08.png',
             'campaign_id' => 2,
             'country_id' => 1,
+            'stream_total_to_receive' => '1000',
         ]);
 
         DB::table('streams')->insert([
@@ -119,6 +127,7 @@ class StreamSeeder extends Seeder
             'stream_check_picture_2'=>'https://assets.help.twitch.tv/article/img/000002339-08.png',
             'campaign_id' => 3,
             'country_id' => 4,
+            'stream_total_to_receive' => '1000',
         ]);
 
         DB::table('streams')->insert([
@@ -131,6 +140,7 @@ class StreamSeeder extends Seeder
             'stream_check_picture_2' =>'https://assets.help.twitch.tv/article/img/000002339-08.png',
             'campaign_id' => 3,
             'country_id' => 5,
+            'stream_total_to_receive' => '1000',
         ]);
 
         DB::table('streams')->insert([
@@ -143,6 +153,7 @@ class StreamSeeder extends Seeder
             'stream_check_picture_2' =>'https://assets.help.twitch.tv/article/img/000002339-08.png',
             'campaign_id' => 4,
             'country_id' => 6,
+            'stream_total_to_receive' => '1000',
         ]);
 
         DB::table('streams')->insert([
@@ -155,6 +166,7 @@ class StreamSeeder extends Seeder
             'stream_check_picture_2' =>'https://assets.help.twitch.tv/article/img/000002339-08.png',
             'campaign_id' => 3,
             'country_id' => 1,
+            'stream_total_to_receive' => '1000',
         ]);
 
         DB::table('streams')->insert([
@@ -167,6 +179,7 @@ class StreamSeeder extends Seeder
             'stream_check_picture_2' =>'https://assets.help.twitch.tv/article/img/000002339-08.png',
             'campaign_id' => 2,
             'country_id' => 2,
+            'stream_total_to_receive' => '1000',
         ]);
 
         DB::table('streams')->insert([
@@ -179,6 +192,7 @@ class StreamSeeder extends Seeder
             'stream_check_picture_2' =>'https://assets.help.twitch.tv/article/img/000002339-08.png',
             'campaign_id' => 1,
             'country_id' => 3,
+            'stream_total_to_receive' => '1000',
         ]);
     }
 }

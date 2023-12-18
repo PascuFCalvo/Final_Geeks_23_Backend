@@ -21,6 +21,7 @@ class StreamerSeeder extends Seeder
             'streamer_platform' => 'Twitch',
             'streamer_revenue' => 0,
             'has_active_campaigns' => false,
+            'image_stream' => 'https://marketing4ecommerce.net/wp-content/uploads/2020/08/Twitch-Studio.jpg',
         ]);
 
         DB::table('streamers')->insert([
@@ -31,6 +32,7 @@ class StreamerSeeder extends Seeder
             'streamer_platform' => 'Twitch',
             'streamer_revenue' => 0,
             'has_active_campaigns' => false,
+            'image_stream' => 'https://marketing4ecommerce.net/wp-content/uploads/2020/08/Twitch-Studio.jpg',
         ]);
 
         DB::table('streamers')->insert([
@@ -41,6 +43,7 @@ class StreamerSeeder extends Seeder
             'streamer_platform' => 'Twitch',
             'streamer_revenue' => 0,
             'has_active_campaigns' => false,
+            'image_stream' => 'https://marketing4ecommerce.net/wp-content/uploads/2020/08/Twitch-Studio.jpg',
         ]);
 
         DB::table('streamers')->insert([
@@ -51,6 +54,7 @@ class StreamerSeeder extends Seeder
             'streamer_platform' => 'Twitch',
             'streamer_revenue' => 0,
             'has_active_campaigns' => false,
+            'image_stream' => 'https://marketing4ecommerce.net/wp-content/uploads/2020/08/Twitch-Studio.jpg',
         ]);
 
         DB::table('streamers')->insert([
@@ -61,6 +65,7 @@ class StreamerSeeder extends Seeder
             'streamer_platform' => 'Twitch',
             'streamer_revenue' => 0,
             'has_active_campaigns' => false,
+            'image_stream' => 'https://marketing4ecommerce.net/wp-content/uploads/2020/08/Twitch-Studio.jpg',
         ]);
     }
 }
