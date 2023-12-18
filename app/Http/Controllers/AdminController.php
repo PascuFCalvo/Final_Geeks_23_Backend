@@ -38,69 +38,21 @@ class AdminController extends Controller
         }
     }
 
-    public function getUserById($id)
-    {
-        try {
-            $user = User::query()
-                ->where('id', $id)
-                ->first();
-            return response()->json(
-                [
-                    "success" => true,
-                    "message" => "user retrieved",
-                    "user" => $user
-                ],
-                Response::HTTP_OK
-            );
-        } catch (\Throwable $th) {
-            Log::error($th->getMessage());
-            return response()->json(
-                [
-                    "success" => false,
-                    "message" => "Error retrieving user"
-                ],
-                Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
-    }
 
-    public function deleteUserById($id)
-    {
-        try {
-            $user = User::query()
-                ->where('id', $id)
-                ->first();
-            $user->delete();
-            return response()->json(
-                [
-                    "success" => true,
-                    "message" => "user deleted",
-                    "user" => $user
-                ],
-                Response::HTTP_OK
-            );
-        } catch (\Throwable $th) {
-            Log::error($th->getMessage());
-            return response()->json(
-                [
-                    "success" => false,
-                    "message" => "Error deleting user"
-                ],
-                Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
-    }
 
-    public function activateAUserById($id)
+
+    public function activateUserById(Request $request, $id)
     {
         try {
+            $host = $request->header('host');
+            Log::info($host);
             $user = User::query()->find($id);
             $user->is_active = true;
             $user->save();
             return response()->json(
                 [
                     "success" => true,
-                    "message" => "user inactivated",
+                    "message" => "user activated",
                     "user" => $user
                 ],
                 Response::HTTP_OK
@@ -117,9 +69,10 @@ class AdminController extends Controller
         }
     }
 
-    public function inactivateAUserById($id)
+    public function inactivateUserById($id)
     {
         try {
+            Log::info("hola");
             $user = User::query()
                 ->where('id', $id)
                 ->first();
@@ -280,6 +233,32 @@ class AdminController extends Controller
                 [
                     "success" => false,
                     "message" => "Error approving stream"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    public function definitiveDeleteUser($id)
+    {
+        try {
+
+            $deletedUser = User::destroy($id);
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "user deleted",
+                    "user" => $deletedUser
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error deleting user"
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );

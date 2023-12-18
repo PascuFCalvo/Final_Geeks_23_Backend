@@ -24,7 +24,7 @@ return new class extends Migration
             $table->text('stream_check_picture_2');
             $table->unsignedBigInteger('campaign_id');
             $table->foreign('campaign_id')->references('id')
-                ->on('campaigns');
+                ->on('campaigns')->onDelete('cascade');
             $table->unsignedBigInteger("country_id");
             $table->foreign('country_id')->references('id')
                 ->on('countries');

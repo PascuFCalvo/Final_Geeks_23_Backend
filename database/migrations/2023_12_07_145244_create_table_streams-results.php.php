@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal("total_revenue_generated",20,2)->default(0);
             $table->boolean("is_stream_validated")->default(false);
             $table->boolean("is_streamer_payed")->default(false);
+            $table->timestamps();
         });
     }
 

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('country_name', 50);
             $table->decimal('country_bonus',5,2);
+            $table->timestamps();
         });
     }
 

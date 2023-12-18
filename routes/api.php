@@ -22,18 +22,38 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+Route::get("/", function (Request $request) {
+   $host = $request->header();
+   return $host;
+});
+
+Route::put('/inactivateACampaign/{id}', [BrandController::class, "inactivateACampaign"]);
+Route::put('/activateACampaign/{id}', [BrandController::class, "activateACampaign"]);
+
+//rutas que son publicas
+Route::post('/registerBrand', [UserController::class, 'registerBrand']);
+Route::post('/registerStreamer', [UserController::class, 'registerStreamer']);
+Route::post('/login', [UserController::class, 'login']);
+Route::post('/logout', [UserController::class, 'logout']);
+Route::get('/getCountries', [UserController::class, 'getCountries']);
 
 
 
-
+Route::group([
+   'middleware' => ['auth:sanctum', 'is_admin']
+], function () {
+   
+   Route::put('/activateUserById/{id}', [AdminController::class, 'activateUserById']);
+   Route::put('/inactivateUserById/{id}', [AdminController::class, 'inactivateUserById']);
+   Route::put('/approveAStream/{id}', [AdminController::class, "approveAStream"]);
+   Route::delete('/definitiveDeleteUser/{id}', [AdminController::class, "definitiveDeleteUser"]);
+});
 
 
 Route::group([
    'middleware' => ['auth:sanctum']
 ], function () {
-   
-
-   
+        
    Route::get('/getAllUsers', [AdminController::class, 'getAllUsers']);
    Route::get('/getAllStreams', [AdminController::class, 'getAllStreams']);
    Route::put('/editBrandProfile', [BrandController::class, 'editBrandProfile']);
@@ -56,15 +76,6 @@ Route::group([
    Route::get('/getAllStreams', [AdminController::class, 'getAllStreams']);
    Route::get('/getAllActivatedCampaigns', [StreamerController::class, "getAllActivatedCampaigns"]);
 });
-Route::put('/inactivateAUserById/{id}', [AdminController::class, 'inactivateAUserById']);
-Route::put('/activateAUserById/{id}', [AdminController::class, 'activateAUserById']);
-Route::put('/inactivateACampaign/{id}', [BrandController::class, "inactivateACampaign"]);
-Route::put('/activateACampaign/{id}', [BrandController::class, "activateACampaign"]);
-Route::put('/approveAStream/{id}', [AdminController::class, "approveAStream"]);
-Route::post('/registerBrand', [UserController::class, 'registerBrand']);
-Route::post('/registerStreamer', [UserController::class, 'registerStreamer']);
-Route::post('/login', [UserController::class, 'login']);
-Route::post('/logout', [UserController::class, 'logout']);
-Route::get('/getCountries', [UserController::class, 'getCountries']);
 
-//como usuario actualizar mis credenciales de email y password
+
+

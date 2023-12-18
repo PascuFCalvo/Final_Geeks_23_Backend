@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('brand_id');
             $table->foreign('brand_id')->references('id')
-                ->on('brands');
+                ->on('brands')->onDelete("cascade");
             $table->string("campaign_name", 50);
             $table->string("campaign_description", 200);
             $table->string("campaign_start_date", 100);
-            $table->decimal("price_per_single_view",5,2);
+            $table->decimal("price_per_single_view", 5, 2);
             $table->json("campaign_streamers_on_it");
             $table->boolean("is_active")->default(true);
         });

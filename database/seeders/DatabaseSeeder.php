@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call([StreamerSeeder::class]);
         $this->call([BrandSeeder::class]);
         $this->call([CampaignSeeder::class]);
+        $this->call([StreamSeeder::class]);
     }
 }
