@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string("campaign_name", 50);
             $table->string("campaign_description", 200);
             $table->string("campaign_start_date", 100);
-            $table->integer("price_per_single_view");
+            $table->decimal("price_per_single_view",5,2);
             $table->json("campaign_streamers_on_it");
             $table->boolean("is_active")->default(true);
         });

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Campaign extends Authenticatable
@@ -21,8 +22,14 @@ class Campaign extends Authenticatable
    ];
 
 
-   public function brand()
+   public function streamers(): BelongsToMany
    {
-      return $this->belongsTo(Brand::class);
+      return $this->belongsToMany(Stream::class, "streams", "streamer_id", "campaign_id");
+   }
+
+   public function country(): BelongsTo
+   {
+      return $this->belongsTo(Country::class, "country_id");
    }
 }
+

@@ -114,26 +114,12 @@ class StreamerController extends Controller
     {
         try {
             $user = User::query()->find(auth()->user()->id);
-            $streamer = Streamer::query()->where('user_id', $user->id)->first();
+            $streamer = Streamer::query()
+                ->with("streams")
+                ->where('user_id', $user->id)->first();
             $streams = Stream::query()->where('streamer_id', $streamer->id)->orderBy('created_at', 'desc')->get();
 
-            if (
-                $streams[0] === [] ||
-                $streams[0] === null ||
-                $streams[0] === "" ||
-                $streams[0] === false ||
-                $streams[0] === 0 ||
-                !$streams
-            ) {
-                $streamer->has_active_campaigns = false;
-                return response()->json(
-                    [
-                        "success" => false,
-                        "message" => "No streams found"
-                    ],
-                    Response::HTTP_INTERNAL_SERVER_ERROR
-                );
-            }
+
 
             $streamer->has_active_campaigns = true;
             $streamer->save();
@@ -161,7 +147,11 @@ class StreamerController extends Controller
     public function getAllStreams(Request $request)
     {
         try {
-            $streams = Stream::query()->get();
+            $streams = Stream::query()
+                ->with("campaign")
+                ->with("streamer")
+                ->with("country")
+                ->get();
 
             return response()->json(
                 [

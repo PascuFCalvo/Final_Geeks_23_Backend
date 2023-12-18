@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('streamer_nick', 50);
             $table->string('streamer_nif', 20);
             $table->string('streamer_platform', 100);
-            $table->integer('streamer_revenue')->default(0);
+            $table->decimal('streamer_revenue',20,2)->default(0);
             $table->boolean('has_active_campaigns')->default(false);
             $table->timestamps();
         });

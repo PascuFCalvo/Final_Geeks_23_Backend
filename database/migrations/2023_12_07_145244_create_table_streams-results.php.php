@@ -16,15 +16,13 @@ return new class extends Migration
             $table->unsignedBigInteger('stream_id');
             $table->foreign('stream_id')->references('id')
                 ->on('streams');
-            $table->integer("total_revenue_generated");
+            $table->decimal("total_revenue_generated",20,2)->default(0);
             $table->boolean("is_stream_validated")->default(false);
             $table->boolean("is_streamer_payed")->default(false);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down(): void
     {
         Schema::dropIfExists('streams-results');

@@ -20,4 +20,24 @@ class Streamer extends Authenticatable
 
 
    ];
+
+   public function campaigns(): BelongsToMany
+   {
+      return $this->belongsToMany(Campaign::class, "streams", "streamer_id", "campaign_id");
+   }
+
+   public function user(): BelongsTo
+   {
+      return $this->belongsTo(User::class, "user_id");
+   }
+
+   public function country(): BelongsTo
+   {
+      return $this->belongsTo(Country::class, "country_id");
+   }
+
+   public function streams(): HasMany
+   {
+      return $this->hasMany(Stream::class, "streamer_id");
+   }
 }

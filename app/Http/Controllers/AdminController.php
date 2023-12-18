@@ -149,6 +149,10 @@ class AdminController extends Controller
     {
         try {
             $streams = Stream::query()
+                ->with("campaign")
+                ->with("streamer")
+                ->with("streamer.user")
+                ->with("country")
                 ->orderBy('stream_date', 'asc')
                 ->get();
 
@@ -230,6 +234,8 @@ class AdminController extends Controller
     {
         try {
             $streamers = Streamer::query()
+                ->with("country")
+                ->with("user")
                 ->orderBy('streamer_nick', 'asc')
                 ->get();
 

@@ -35,4 +35,9 @@ class Stream extends Authenticatable
    {
       return $this->belongsTo(Campaign::class, "campaign_id");
    }
+
+   public function country()
+   {
+      return $this->belongsTo(Country::class, "country_id");
+   }
 }
