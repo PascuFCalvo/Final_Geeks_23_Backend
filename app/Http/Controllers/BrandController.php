@@ -7,10 +7,26 @@ use App\Models\Campaign;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class BrandController extends Controller
+
 {
+
+    private function validateCampaign(Request $request)
+    {
+        $validateCampaign = Validator::make($request->all(), [
+            "campaign_name" => "required",
+            "campaign_description" => "required",
+            "campaign_start_date" => "required",
+            "price_per_single_view" => "required"
+
+        ]);
+
+        return $validateCampaign;
+    }
+
     public function editBrandProfile(Request $request)
     {
         try {
@@ -67,6 +83,17 @@ class BrandController extends Controller
 
     public function createACampaign(Request $request)
     {
+        $validateCampaign = $this->validateCampaign($request);
+        if ($validateCampaign->fails()) {
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error creating campaign",
+                    "errors" => $validateCampaign->errors()
+                ],
+                Response::HTTP_BAD_REQUEST
+            );
+        }
         try {
             $user = User::query()->find(auth()->user()->id);
             $brand = Brand::query()->where('user_id', $user->id)->first();
