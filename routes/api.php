@@ -29,8 +29,6 @@ Route::get("/", function (Request $request) {
 
 Route::put('/inactivateACampaign/{id}', [BrandController::class, "inactivateACampaign"]);
 Route::put('/activateACampaign/{id}', [BrandController::class, "activateACampaign"]);
-
-//rutas que son publicas
 Route::post('/registerBrand', [UserController::class, 'registerBrand']);
 Route::post('/registerStreamer', [UserController::class, 'registerStreamer']);
 Route::post('/login', [UserController::class, 'login']);
