@@ -92,5 +92,66 @@ class UserSeeder extends Seeder
             'is_active' => true,
             'user_avatar_link' => 'https://res.cloudinary.com/dlcgfuujm/image/upload/v1702141877/samples/man-on-a-escalator.jpg',
         ]);
+
+        DB::table('users')->insert([
+            'user_name' => 'admin2',
+            'user_email' => 'admin2@admin2.com',
+            'password' => '$2y$12$zN6mDFwQvmuj/QYr.BYfY.p7r9k/IkMW.9HfPLT6nkugfBV4o0DIa', // password1234
+            'user_phone' => '612345678',
+            'user_role' => 'admin',
+            'is_active' => true,
+            'user_avatar_link' => 'https://res.cloudinary.com/dlcgfuujm/image/upload/v1702640064/s2h9oymyisx8uzexqst8.jpg',
+        ]);
+
+        DB::table('users')->insert([
+            'user_name' => 'Pedro Sanchez',
+            'user_email' => 'pedro@pedro.com',
+            'password' => '$2y$12$zN6mDFwQvmuj/QYr.BYfY.p7r9k/IkMW.9HfPLT6nkugfBV4o0DIa',
+            'user_phone' => '612345678',
+            'user_role' => 'streamer',
+            'is_active' => true,
+            'user_avatar_link' => 'https://res.cloudinary.com/dlcgfuujm/image/upload/v1702545741/lplax0za0fzourntuiug.jpg',
+        ]);
+
+        DB::table('users')->insert([
+            'user_name' => 'Jose Campos',
+            'user_email' => 'jose@jose.com',
+            'password' => '$2y$12$zN6mDFwQvmuj/QYr.BYfY.p7r9k/IkMW.9HfPLT6nkugfBV4o0DIa',
+            'user_phone' => '612345678',
+            'user_role' => 'streamer',
+            'is_active' => true,
+            'user_avatar_link' => 'https://res.cloudinary.com/dlcgfuujm/image/upload/v1702545701/tgeex2ssylvyejzk5tih.jpg',
+        ]);
+
+        DB::table('users')->insert([
+            'user_name' => 'Tomas Garcia',
+            'user_email' => 'tomas@tomas.com',
+            'password' => '$2y$12$zN6mDFwQvmuj/QYr.BYfY.p7r9k/IkMW.9HfPLT6nkugfBV4o0DIa',
+            'user_phone' => '612345678',
+            'user_role' => 'streamer',
+            'is_active' => true,
+            'user_avatar_link' => 'https://res.cloudinary.com/dlcgfuujm/image/upload/v1702309691/lffmfw97cqzj44tup2ly.png',
+        ]);
+
+        DB::table('users')->insert([
+            'user_name' => 'Ramon Parcero',
+            'user_email' => 'ramon@ramon.com',
+            'password' => '$2y$12$zN6mDFwQvmuj/QYr.BYfY.p7r9k/IkMW.9HfPLT6nkugfBV4o0DIa',
+            'user_phone' => '612345678',
+            'user_role' => 'streamer',
+            'is_active' => true,
+            'user_avatar_link' => 'https://res.cloudinary.com/dlcgfuujm/image/upload/v1702208182/eledn10vdfzvnlds1udu.jpg',
+        ]);
+
+        DB::table('users')->insert([
+            'user_name' => 'Silvia Ruiz',
+            'user_email' => 'silvia@silvia.com',
+            'password' => '$2y$12$zN6mDFwQvmuj/QYr.BYfY.p7r9k/IkMW.9HfPLT6nkugfBV4o0DIa',
+            'user_phone' => '612345678',
+            'user_role' => 'streamer',
+            'is_active' => true,
+            'user_avatar_link' => 'https://res.cloudinary.com/dlcgfuujm/image/upload/v1702141881/samples/upscale-face-1.jpg',
+        ]);
+        
     }
 }

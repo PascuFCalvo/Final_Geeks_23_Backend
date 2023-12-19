@@ -67,5 +67,65 @@ class StreamerSeeder extends Seeder
             'has_active_campaigns' => false,
             'image_stream' => 'https://marketing4ecommerce.net/wp-content/uploads/2020/08/Twitch-Studio.jpg',
         ]);
+
+        DB::table('streamers')->insert([
+            'user_id' => 10,
+            'country_id' => 6,
+            'streamer_nick' => 'KillerMan',
+            'streamer_nif' => '12345678F',
+            'streamer_platform' => 'Twitch',
+            'streamer_revenue' => 0,
+            'has_active_campaigns' => false,
+            'image_stream' => 'https://marketing4ecommerce.net/wp-content/uploads/2020/08/Twitch-Studio.jpg',
+        ]);
+
+        DB::table('streamers')->insert([
+            'user_id' => 11,
+            'country_id' => 2,
+            'streamer_nick' => 'Roubinho',
+            'streamer_nif' => '12345678G',
+            'streamer_platform' => 'Twitch',
+            'streamer_revenue' => 0,
+            'has_active_campaigns' => false,
+            'image_stream' => 'https://marketing4ecommerce.net/wp-content/uploads/2020/08/Twitch-Studio.jpg',
+        ]);
+
+        DB::table('streamers')->insert([
+            'user_id' => 12,
+            'country_id' => 4,
+            'streamer_nick' => 'Mancuso',
+            'streamer_nif' => '12345678H',
+            'streamer_platform' => 'Twitch',
+            'streamer_revenue' => 0,
+            'has_active_campaigns' => false,
+            'image_stream' => 'https://marketing4ecommerce.net/wp-content/uploads/2020/08/Twitch-Studio.jpg',
+        ]);
+
+        DB::table('streamers')->insert([
+            'user_id' => 13,
+            'country_id' => 5,
+            'streamer_nick' => 'Pepito',
+            'streamer_nif' => '12345678I',
+            'streamer_platform' => 'Twitch',
+            'streamer_revenue' => 0,
+            'has_active_campaigns' => true,
+            'image_stream' => 'https://marketing4ecommerce.net/wp-content/uploads/2020/08/Twitch-Studio.jpg',
+        ]);
+
+        DB::table('streamers')->insert([
+            'user_id' => 14,
+            'country_id' => 1,
+            'streamer_nick' => 'USilvia',
+            'streamer_nif' => '12345678I',
+            'streamer_platform' => 'Twitch',
+            'streamer_revenue' => 0,
+            'has_active_campaigns' => true,
+            'image_stream' => 'https://marketing4ecommerce.net/wp-content/uploads/2020/08/Twitch-Studio.jpg',
+        ]);
+
+
+
+
+
     }
 }
