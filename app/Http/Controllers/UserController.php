@@ -6,18 +6,76 @@ use App\Models\Brand;
 use App\Models\Country;
 use App\Models\User;
 use App\Models\Streamer;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use Laravel\Sanctum\PersonalAccessToken;
 
 
 class UserController extends Controller
 {
+
+    private function validateUser(Request $request)
+    {
+        $validatorUser = Validator::make($request->all(), [
+            'user_name' => 'required|min:3|max:100',
+            'user_email' => 'required|unique:users|email',
+            'password' => 'required|min:8|max:20',
+            'user_phone' => 'required|min:9|max:15',
+            'user_avatar_link' => 'required',
+
+        ]);
+
+        return $validatorUser;
+    }
+
+    public function validateStreamer(Request $request)
+    {
+        $validatorStreamer = Validator::make($request->all(), [
+            'streamer_nick' => 'required|min:3|max:100',
+            'streamer_nif' => 'required|min:9|max:15',
+            'streamer_platform' => 'required',
+            'country_id' => 'required',
+
+        ]);
+
+        return $validatorStreamer;
+    }
+
+    public function validateBrand(Request $request)
+    {
+        $validatorBrand = Validator::make($request->all(), [
+            'brand_name' => 'required|min:3|max:100',
+            'brand_cif' => 'required|min:9|max:15',
+            'brand_description' => 'required',
+            'brand_logo_link' => 'required',
+            'country_id' => 'required',
+
+
+        ]);
+
+        return $validatorBrand;
+    }
+
+
     public function registerStreamer(Request $request)
     {
         try {
+            $validatorUser = $this->validateUser($request);
+            if ($validatorUser->fails()) {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "Error registering user",
+                        "error" => $validatorUser->errors()
+                    ],
+                    Response::HTTP_BAD_REQUEST
+                );
+            }
+
             $newUser = User::create(
                 [
                     'user_name' => $request->user_name,
@@ -29,6 +87,18 @@ class UserController extends Controller
                     'user_avatar_link' => $request->user_avatar_link,
                 ]
             );
+
+            $validatorStreamer = $this->validateStreamer($request);
+            if ($validatorStreamer->fails()) {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "Error registering streamer",
+                        "error" => $validatorStreamer->errors()
+                    ],
+                    Response::HTTP_BAD_REQUEST
+                );
+            }
             $newStreamer = Streamer::create(
                 [
                     'user_id' => $newUser->id,
@@ -65,6 +135,20 @@ class UserController extends Controller
     public function registerBrand(Request $request)
     {
         try {
+            Log::info('Registering brand - 1');
+            $validatorUser = $this->validateUser($request);
+            Log::info('Registering brand - 2');
+            if ($validatorUser->fails()) {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "Error registering user",
+                        "error" => $validatorUser->errors()
+                    ],
+                    Response::HTTP_BAD_REQUEST
+                );
+            }
+            
             $newUser = User::create(
                 [
                     'user_name' => $request->user_name,
@@ -76,7 +160,18 @@ class UserController extends Controller
                     'user_avatar_link' => $request->user_avatar_link,
                 ]
             );
-
+            
+            $validatorBrand = $this->validateBrand($request);
+            if ($validatorBrand->fails()) {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "Error registering brand",
+                        "error" => $validatorBrand->errors()
+                    ],
+                    Response::HTTP_BAD_REQUEST
+                );
+            }
             $newBrand = Brand::create(
                 [
                     'user_id' => $newUser->id,
@@ -88,6 +183,7 @@ class UserController extends Controller
                     'has_active_campaigns' => false,
                 ]
             );
+
 
             return response()->json(
                 [
