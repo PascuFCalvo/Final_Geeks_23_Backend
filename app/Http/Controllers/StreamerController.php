@@ -9,11 +9,29 @@ use App\Models\Streamer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Laravel\Sanctum\PersonalAccessToken;
 use Symfony\Component\HttpFoundation\Response;
 
 class StreamerController extends Controller
 {
+
+    public function validateStream(Request $request)
+    {
+
+        $validateStream = Validator::make($request->all(), [
+            "stream_title" => "required",
+            "stream_description" => "required",
+            "stream_date" => "required",
+            "stream_ammount_of_viewers" => "required",
+            "stream_check_picture_1" => "required",
+            "stream_check_picture_2" => "required",
+            "campaign_id" => "required",
+            "country_id" => "required",
+        ]);
+
+        return $validateStream;
+    }
     public function editStreamerProfile(Request $request)
     {
         try {
