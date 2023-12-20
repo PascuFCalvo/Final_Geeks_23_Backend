@@ -160,6 +160,7 @@ class AdminController extends Controller
     {
         try {
             $brands = Brand::query()
+                ->with("user")
                 ->orderBy('brand_name', 'asc')
                 ->get();
 

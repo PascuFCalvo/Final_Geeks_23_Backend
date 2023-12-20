@@ -60,7 +60,9 @@ class BrandController extends Controller
     public function getAllBrands(Request $request)
     {
         try {
-            $brands = Brand::query()->get();
+            $brands = Brand::query()
+                ->with("user")
+                ->get();
             return response()->json(
                 [
                     "success" => true,
