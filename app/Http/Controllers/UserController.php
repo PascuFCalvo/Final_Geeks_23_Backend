@@ -148,7 +148,7 @@ class UserController extends Controller
                     Response::HTTP_BAD_REQUEST
                 );
             }
-            
+
             $newUser = User::create(
                 [
                     'user_name' => $request->user_name,
@@ -160,7 +160,7 @@ class UserController extends Controller
                     'user_avatar_link' => $request->user_avatar_link,
                 ]
             );
-            
+
             $validatorBrand = $this->validateBrand($request);
             if ($validatorBrand->fails()) {
                 return response()->json(
@@ -271,7 +271,8 @@ class UserController extends Controller
                 Response::HTTP_OK
             );
         } elseif ($user->user_role == 'streamer') {
-            $streamer = Streamer::query()->where('user_id', $user->id)->first();
+            $streamer = Streamer::query()->with("streams")
+                ->with('country')->where('user_id', $user->id)->first();
             return response()->json(
                 [
                     "success" => true,
