@@ -382,4 +382,59 @@ class UserController extends Controller
             );
         }
     }
+
+    public function changePassword(Request $request)
+    {
+        try {
+            $user = User::query()->find(auth()->user()->id);
+            $oldPassword = $request->input("oldPassword");
+            if (!Hash::check($oldPassword, $user->password)) {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "Old password is incorrect"
+                    ],
+                    Response::HTTP_UNAUTHORIZED
+                );
+            }
+            
+            $password = $request->input("password");
+            $confirmPassword = $request->input("confirmPassword");
+
+            if ($password != $confirmPassword) {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "Passwords do not match"
+                    ],
+                    Response::HTTP_UNAUTHORIZED
+                );
+            }
+
+            $user->password = bcrypt($password);
+
+            $user->save();
+            $accessToken = $request->bearerToken();
+            $token = PersonalAccessToken::findToken($accessToken);
+            $token->delete();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "Password changed",
+                    "data" => $user
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error changing password"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
 }

@@ -40,7 +40,7 @@ Route::get('/getCountries', [UserController::class, 'getCountries']);
 Route::group([
    'middleware' => ['auth:sanctum', 'is_admin']
 ], function () {
-   
+
    Route::put('/activateUserById/{id}', [AdminController::class, 'activateUserById']);
    Route::put('/inactivateUserById/{id}', [AdminController::class, 'inactivateUserById']);
    Route::put('/approveAStream/{id}', [AdminController::class, "approveAStream"]);
@@ -51,7 +51,10 @@ Route::group([
 Route::group([
    'middleware' => ['auth:sanctum']
 ], function () {
-        
+
+   // Pruebas
+   Route::put("/changePassword", [UserController::class, "changePassword"]);
+
    Route::get('/getAllUsers', [AdminController::class, 'getAllUsers']);
    Route::get('/getAllStreams', [AdminController::class, 'getAllStreams']);
    Route::put('/editBrandProfile', [BrandController::class, 'editBrandProfile']);
@@ -74,6 +77,3 @@ Route::group([
    Route::get('/getAllStreams', [AdminController::class, 'getAllStreams']);
    Route::get('/getAllActivatedCampaigns', [StreamerController::class, "getAllActivatedCampaigns"]);
 });
-
-
-
